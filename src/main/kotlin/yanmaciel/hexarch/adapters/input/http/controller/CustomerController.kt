@@ -1,21 +1,23 @@
 package yanmaciel.hexarch.adapters.input.http.controller
 
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import yanmaciel.hexarch.core.domain.model.Customer
+import org.springframework.web.bind.annotation.*
+import yanmaciel.hexarch.adapters.input.http.dto.converter.toDomain
+import yanmaciel.hexarch.adapters.input.http.dto.converter.toResponse
+import yanmaciel.hexarch.adapters.input.http.dto.request.CustomerRequest
+import yanmaciel.hexarch.adapters.input.http.dto.response.CustomerResponse
 import yanmaciel.hexarch.core.domain.service.CustomerService
-import yanmaciel.hexarch.core.port.input.GetCustomerUseCase
-import yanmaciel.hexarch.core.port.input.SaveCustomerUseCase
 
 @RestController
 @RequestMapping("/v1/customer")
 class CustomerController(
     private val customerService: CustomerService
-) : GetCustomerUseCase, SaveCustomerUseCase {
+) {
 
-    override fun getById(customerId: String): Customer = customerService.
+    @PostMapping
+    fun save(@RequestBody customerRequest: CustomerRequest): CustomerResponse =
+        customerService.save(customerRequest.toDomain()).toResponse()
 
-    override fun save(customer: Customer): Customer {
-        TODO("Not yet implemented")
-    }
+    @GetMapping("/{customerId}")
+    fun getById(@PathVariable customerId: String): CustomerResponse =
+        customerService.getById(customerId).toResponse()
 }
