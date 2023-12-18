@@ -10,7 +10,6 @@ fun CustomerRequest.toDomain() = with(this) {
 
 fun Customer.toResponse() = with(this) {
     CustomerResponse(
-        id = id,
         name = name,
         score = credit?.score,
         availableLimit = credit?.availableLimit
