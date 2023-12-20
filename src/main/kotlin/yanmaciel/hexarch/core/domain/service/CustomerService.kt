@@ -5,17 +5,20 @@ import yanmaciel.hexarch.core.domain.model.Credit
 import yanmaciel.hexarch.core.domain.model.Customer
 import yanmaciel.hexarch.core.port.input.GetCustomerUseCase
 import yanmaciel.hexarch.core.port.input.SaveCustomerUseCase
-import yanmaciel.hexarch.core.port.output.CreditScoreOutputPort
-import yanmaciel.hexarch.core.port.output.CustomerRepositoryOutputPort
+import yanmaciel.hexarch.core.port.output.CreditScorePort
+import yanmaciel.hexarch.core.port.output.CustomerRepositoryPort
+import yanmaciel.hexarch.core.port.output.CustomerStateMessagePort
 
 @Service
 class CustomerService(
-    private val creditScoreOutputPort: CreditScoreOutputPort,
-    private val customerRepositoryOutputPort: CustomerRepositoryOutputPort
+    private val creditScorePort: CreditScorePort,
+    private val customerRepositoryPort: CustomerRepositoryPort,
+    private val customerStateMessagePort: CustomerStateMessagePort
 ) : GetCustomerUseCase, SaveCustomerUseCase {
 
-    override fun getById(customerId: String): Customer = customerRepositoryOutputPort.getById(customerId)
+    override fun getById(customerId: String): Customer = customerRepositoryPort.getById(customerId)
 
     override fun save(customer: Customer): Customer =
-        customerRepositoryOutputPort.save(customer.apply { credit = Credit(creditScoreOutputPort.getScore(id)) })
+        customerRepositoryPort.save(customer.apply { credit = Credit(creditScorePort.getScore(id)) })
+            .also { customerStateMessagePort.send(customer) }
 }

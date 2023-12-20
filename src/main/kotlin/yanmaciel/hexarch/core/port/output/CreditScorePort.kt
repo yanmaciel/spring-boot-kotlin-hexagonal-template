@@ -1,5 +1,5 @@
 package yanmaciel.hexarch.core.port.output
 
-interface CreditScoreOutputPort {
+interface CreditScorePort {
     fun getScore(customerId: String): Int
 }
