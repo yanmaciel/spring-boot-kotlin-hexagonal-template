@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  localstack:
+    image: localstack/localstack:0.12.10
+    ports:
+      - "4566:4566"
+    environment:
+      SERVICES: dynamodb,sns
+      DEFAULT_REGION: sa-east-1
+      DEBUG: 1
+      USE_SSL: 0
+    volumes:
+      - ./localstack:/docker-entrypoint-initaws.d
+
+  wiremock:
+    image: wiremock/wiremock
+    hostname: wiremock
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./mocks/__files:/home/wiremock/__files
+      - ./mocks/mappings:/home/wiremock/mappings
