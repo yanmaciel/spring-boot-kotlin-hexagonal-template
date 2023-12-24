@@ -15,7 +15,6 @@ import yanmaciel.hexarch.utils.objectToJson
 class SqsService(
     @Value("\${aws.sqs.queueName}")
     private val sqsQueueName: String,
-    private val objectMapper: ObjectMapper,
     private val amazonSQSAsync: AmazonSQSAsync
 ) : CustomerStateMessagePort {
 
@@ -32,6 +31,6 @@ class SqsService(
 
         val response = amazonSQSAsync.sendMessage(sendMessageRequest)
 
-        logger.info("Message ${response.messageId} sent out. Body: $messageBody")
+        logger.info("Message ${response.messageId} sent out to queue $sqsQueueName. Body: $messageBody")
     }
 }

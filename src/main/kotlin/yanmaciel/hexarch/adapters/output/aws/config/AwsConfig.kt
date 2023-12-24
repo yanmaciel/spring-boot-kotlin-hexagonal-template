@@ -23,13 +23,13 @@ class AwsConfig(
 ) {
 
     @Bean
-    fun awsClientProvider(): AWSStaticCredentialsProvider =
+    fun awsCredentialsProvider(): AWSStaticCredentialsProvider =
         AWSStaticCredentialsProvider(BasicAWSCredentials(awsKey, awsSecret))
 
     @Bean
-    fun amazonSQSAsync(): AmazonSQSAsync =
+    fun amazonSQSAsync(awsCredentialsProvider: AWSStaticCredentialsProvider): AmazonSQSAsync =
         AmazonSQSAsyncClientBuilder.standard()
-            .withCredentials(awsClientProvider())
+            .withCredentials(awsCredentialsProvider)
             .withEndpointConfiguration(
                 AwsClientBuilder.EndpointConfiguration(awsEndpoint, awsRegion)
             )
