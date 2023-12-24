@@ -31,8 +31,19 @@ jobs:
     needs: build-test-maven
     permissions: write-all
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check existing pull requests
+        id: pr_check
+        run: |
+          PR_COUNT=$(gh pr list --base main --head develop --json number --limit 1 | jq length)
+          echo "::set-output name=pr_count::$PR_COUNT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Pull Request
+        if: ${{ steps.pr_check.outputs.pr_count == 0 }}
         run: gh pr create --base main --head develop --title "Merge develop into main" --body "Auto-generated pull request from GitHub Actions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
