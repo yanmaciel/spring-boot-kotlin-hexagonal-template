@@ -1,17 +1,15 @@
-version: '3.3'
+version: '3.9'
 
 services:
   localstack:
-    image: localstack/localstack:0.12.10
+    image: localstack/localstack:latest
     ports:
       - "4566:4566"
     environment:
       SERVICES: dynamodb,sqs
-      DEFAULT_REGION: us-east-1
       DEBUG: 1
-      USE_SSL: 0
     volumes:
-      - ./localstack:/docker-entrypoint-initaws.d
+      - ./localstack/boot-local-env.sh:/etc/localstack/init/ready.d/script.sh
 
   wiremock:
     image: wiremock/wiremock

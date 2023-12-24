@@ -1,8 +1,6 @@
 package yanmaciel.hexarch.core.domain.service
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+
 import org.springframework.stereotype.Service
 import yanmaciel.hexarch.core.domain.model.Credit
 import yanmaciel.hexarch.core.domain.model.Customer
