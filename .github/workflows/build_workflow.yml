@@ -30,4 +30,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Pull Request
-        run: gh pr create --branch main --head develop --title "Merge develop into main" --body "Auto-generated pull request from GitHub Actions"
+        run: gh pr create --base main --head develop --title "Merge develop into main" --body "Auto-generated pull request from GitHub Actions"
