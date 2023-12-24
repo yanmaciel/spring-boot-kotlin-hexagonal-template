@@ -31,3 +31,5 @@ jobs:
     steps:
       - name: Create Pull Request
         run: gh pr create --base main --head develop --title "Merge develop into main" --body "Auto-generated pull request from GitHub Actions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
