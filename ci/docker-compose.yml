@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      SERVICES: dynamodb,sqs
+      DEBUG: 1
+    volumes:
+      - ./localstack/boot-local-env.sh:/etc/localstack/init/ready.d/script.sh
+
+  wiremock:
+    image: wiremock/wiremock
+    hostname: wiremock
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./mocks/__files:/home/wiremock/__files
+      - ./mocks/mappings:/home/wiremock/mappings

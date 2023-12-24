@@ -1,0 +1,20 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/v1/credit-score/client-score-600"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "credit-score-api-response.json",
+        "transformers": [
+          "json-body-transformer"
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
