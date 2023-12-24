@@ -12,6 +12,7 @@ awslocal dynamodb create-table \
   --provisioned-throughput \
       "ReadCapacityUnits=5,WriteCapacityUnits=5" \
 
-echo "Creating SNS topic customer_state_topic"
-awslocal sns create-topic --name customer_state_topic \
+echo "Creating SQS queue customer-state-queue"
+awslocal sqs create-queue --queue-name customer-state-queue \
+          --attributes FifoQueue=false,ContenBasedDeduplication=false \
           --endpoint-url=http://localhost:4566

@@ -1,4 +1,4 @@
-package yanmaciel.hexarch.adapters.output.aws.sns.dto
+package yanmaciel.hexarch.adapters.output.aws.sqs.dto
 
 import yanmaciel.hexarch.utils.getTimestamp
 

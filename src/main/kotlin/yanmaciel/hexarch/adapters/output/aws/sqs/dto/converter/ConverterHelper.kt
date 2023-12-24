@@ -1,6 +1,6 @@
-package yanmaciel.hexarch.adapters.output.aws.sns.dto.converter
+package yanmaciel.hexarch.adapters.output.aws.sqs.dto.converter
 
-import yanmaciel.hexarch.adapters.output.aws.sns.dto.CustomerStateEvent
+import yanmaciel.hexarch.adapters.output.aws.sqs.dto.CustomerStateEvent
 import yanmaciel.hexarch.core.domain.model.Customer
 
 fun Customer.toEvent(): CustomerStateEvent = with(this) {
