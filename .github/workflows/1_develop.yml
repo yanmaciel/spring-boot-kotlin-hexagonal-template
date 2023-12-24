@@ -29,7 +29,8 @@ jobs:
   open-pr-to-main:
     runs-on: ubuntu-latest
     needs: build-test-maven
-    permissions: write-all
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
